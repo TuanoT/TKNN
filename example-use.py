@@ -15,5 +15,14 @@ df['Data'] = df['Data'].apply(ast.literal_eval)
 X = df['Data'].tolist()
 y = df['Quality'].tolist()
 
+X_testing = X.pop(0)
+X_training = X
+
+y_testing = y.pop(0)
+y_training = y
+
 c = Classifier()
-c.fit(X, y, k=5)
+c.fit(X_training, y_training, k=5)
+
+print(c.predict(X_testing))
+print(y_testing)

@@ -1,4 +1,5 @@
 from math import sqrt
+from typing import Any
 
 class Classifier:
     """
@@ -12,7 +13,7 @@ class Classifier:
         self.k = 5
 
 
-    def fit(self, X: list, y: list, k: int=5):
+    def fit(self, X: list[list[float]], y: list[Any], k: int=5) -> None:
 
         # Set X and y
         if len(X) == len(y):
@@ -21,14 +22,14 @@ class Classifier:
         else:
             raise ValueError("X and y must be the same length")
         
-        # Set k
+        # Set k :)
         if k > 0 and k < len(y):
             self.k = k
         else:
             raise ValueError("Something about k is off idk")
         
 
-    def predict(self, pred: list):
+    def predict(self, pred: list) -> Any:
         """
         Predict the class of a new data point based on k nearest neighbors.
         :param pred: A list of features for the new data point.
@@ -50,12 +51,12 @@ class Classifier:
         # Count frequencies of near_targets:
         freq = {}
         for target in near_targets:
-            freq = freq.get(target, 0) + 1
+            freq[target] = freq.get(target, 0) + 1
 
-        return max(freq, key=freq.get)
+        return max(freq, key=freq.get)[0]
 
    
-    def euclidean_distance(A: list, B: list) -> float:
+    def euclidean_distance(_, A: list, B: list) -> float:
         if len(A) != len(B):
             raise ValueError("X values have different dimensions")
         
